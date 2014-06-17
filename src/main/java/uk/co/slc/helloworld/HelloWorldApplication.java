@@ -1,10 +1,9 @@
-package uk.co.slc.helloworld.app;
+package uk.co.slc.helloworld;
 
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import uk.co.slc.helloworld.resources.HelloWorldResource;
-import uk.co.slc.helloworld.configuration.HelloWorldConfiguration;
 import uk.co.slc.helloworld.healthcheck.TemplateHealthCheck;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {

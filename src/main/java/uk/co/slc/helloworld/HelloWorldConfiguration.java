@@ -1,4 +1,4 @@
-package uk.co.slc.helloworld.configuration;
+package uk.co.slc.helloworld;
 
 
         import com.fasterxml.jackson.annotation.JsonProperty;
