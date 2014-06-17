@@ -1,0 +1,46 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'application'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+mainClassName = 'uk.co.slc.helloworld.app.HelloWorldApplication'
+
+repositories {
+    maven {
+        url "http://artifactory.slc.co.uk:8080/artifactory/repo1"
+    }
+    maven {
+        url "http://artifactory.slc.co.uk:8080/artifactory/ext-release-local"
+    }
+    maven {
+        url "http://artifactory.slc.co.uk:8080/artifactory/internal-releases"
+    }
+}
+
+jar.doFirst{
+    manifest{
+        attributes(
+                "Manifest-Version": "1.0",
+                "Class-Path": configurations.runtime.collect {it.getName()}.join(''),
+                "Main-Class": mainClassName,
+                "build-version": "unknown",
+                "git-revision": "unknown"
+        )
+    }
+}
+
+project.ext{
+    dropwizardVersion = '0.7.0'
+}
+
+dependencies {
+    compile ('io.dropwizard:dropwizard-core:'+ dropwizardVersion ) {exclude group:'asm', module: 'asm'}
+    testCompile 'junit:junit:4.+',
+            'org.assertj:assertj-core:1.5.0'
+}
+
+run{
+    args 'server', 'config/hello-world.yml'
+}

@@ -1,0 +1,80 @@
+// plugins
+apply plugin: 'idea'
+
+// simple tasks
+    /*
+    task hello {
+        doLast {
+            println 'Hello Gradle world!'
+    }
+    */
+
+    task upper << {
+        String someString = 'mY_nAmE'
+        println "Original: " + someString
+        println "Upper case: " + someString.toUpperCase()
+    }
+
+     task count << {
+        4.times { print "$it " }
+     }
+
+/* dependancies
+       task intro(dependsOn: hello) << {
+          println "I'm Gradle"
+       }
+
+         Lazy dependsOn - the other task does not exist (yet) */
+
+task taskX(dependsOn: 'taskY') << {
+            println 'taskX'
+        }
+        task taskY << {
+            println 'taskY'
+        }
+
+      /*  Dynamic creation of a task
+        4.times { counter ->
+            task "task$counter" << {
+                println "I'm task number $counter"
+            }
+        }
+        */
+        /* Accessing a task via API - adding a dependencyPI.
+        4.times { counter ->
+            task "task$counter" << {
+                println "I'm task number $counter"
+            }
+        }
+        task0.dependsOn task2, task3
+
+        // Accessing a task via API - adding behaviour
+        task hello << {
+            println 'Hello Earth'
+        }
+        hello.doFirst {
+            println 'Hello Venus'
+        }
+        hello.doLast {
+            println 'Hello Mars'
+        }
+        hello << {
+            println 'Hello Jupiter'
+        }
+*/
+        //Accessing task as a property of the build script
+        task hello << {
+              println 'Hello world!'
+        }
+        hello.doLast {
+              println "Greetings from the $hello.name task."
+        }
+
+        //Adding extra properties to a task
+        task myTask {
+            ext.myProperty = "myValue"
+        }
+
+        task printTaskProperties << {
+            println myTask.myProperty
+        }
